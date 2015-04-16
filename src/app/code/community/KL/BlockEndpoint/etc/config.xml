@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <KL_BlockEndpoint>
+            <version>0.0.1</version>
+        </KL_BlockEndpoint>
+    </modules>
+    <global>
+        <helpers>
+            <kl_blockendpoint>
+                <class>KL_BlockEndpoint_Helper</class>
+            </kl_blockendpoint>
+        </helpers>
+    </global>
+</config>
