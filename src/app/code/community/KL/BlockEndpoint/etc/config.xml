@@ -12,4 +12,15 @@
             </kl_blockendpoint>
         </helpers>
     </global>
+    <frontend>
+        <routers>
+            <kl_blockendpoint>
+                <use>standard</use>
+                <args>
+                    <module>KL_BlockEndpoint</module>
+                    <frontName>blockendpoint</frontName>
+                </args>
+            </kl_blockendpoint>
+        </routers>
+    </frontend>
 </config>

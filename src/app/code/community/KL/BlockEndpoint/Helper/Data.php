@@ -1,6 +1,6 @@
 <?php
 /**
- * BlockEndpoint
+ * Block Endpoint
  *
  * @category  KL
  * @package   KL_BlockEndpoint
