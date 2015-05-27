@@ -45,6 +45,18 @@ class KL_BlockEndpoint_GetController extends Mage_Core_Controller_Front_Action
         $response = array();
 
         foreach ($request as $key => $block) {
+            if (array_key_exists('register', $block)) {
+                foreach ($block['register'] as $key => $value) {
+                    switch ($key) {
+                        case 'product':
+                            Mage::helper('catalog/product')->initProduct($value, $this);
+                            break;
+                        default:
+                            Mage::register($key, $value);
+                            break;
+                    };
+                };
+            }
             if (array_key_exists('layout', $block) && array_key_exists('name', $block)) {
                 $layout = $this->getLayout();
 
