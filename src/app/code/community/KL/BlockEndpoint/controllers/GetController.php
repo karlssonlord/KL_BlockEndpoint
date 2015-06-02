@@ -66,15 +66,24 @@ class KL_BlockEndpoint_GetController extends Mage_Core_Controller_Front_Action
                 $layout->generateXml();
                 $layout->generateBlocks();
 
-                $html = $layout
-                    ->getBlock($block['name'])->setData($block['setData'])->toHtml();
+                $htmlBlock = $layout->getBlock($block['name']);
+
+                if (array_key_exists('setData', $block)) {
+                    $htmlBlock->setData($block['setData']);
+                }
+
+                $html = $htmlBlock->toHtml();
             } else if (array_key_exists('block', $block) && array_key_exists('template', $block)) {
                 $layout = Mage::getSingleton('core/layout');
-                $html = $layout
+                $htmlBlock = $layout
                     ->createBlock($block['block'])
-                    ->setTemplate($block['template'])
-                    ->setData($block['setData'])
-                    ->toHtml();
+                    ->setTemplate($block['template']);
+
+                if (array_key_exists('setData', $block)) {
+                    $htmlBlock->setData($block['setData']);
+                }
+
+                $html = $htmlBlock->toHtml();
             } else {
                 continue;
             }
