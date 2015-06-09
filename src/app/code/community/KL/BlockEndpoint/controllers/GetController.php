@@ -49,7 +49,12 @@ class KL_BlockEndpoint_GetController extends Mage_Core_Controller_Front_Action
                 foreach ($block['register'] as $key => $value) {
                     switch ($key) {
                         case 'product':
-                            Mage::helper('catalog/product')->initProduct($value, $this);
+                            $helper = Mage::helper('catalog/product_view');
+                            $product = Mage::getModel('catalog/product')
+                                ->setStoreId(Mage::app()->getStore()->getId())
+                                ->load($value);
+                            $helper->initProductLayout($product, $this);
+                            $helper->prepareAndRender($value, $this);
                             break;
                         default:
                             Mage::register($key, $value);
