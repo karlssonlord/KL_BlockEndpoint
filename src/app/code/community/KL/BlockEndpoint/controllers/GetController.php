@@ -50,11 +50,19 @@ class KL_BlockEndpoint_GetController extends Mage_Core_Controller_Front_Action
                     switch ($key) {
                         case 'product':
                             $helper = Mage::helper('catalog/product_view');
-                            $product = Mage::getModel('catalog/product')
-                                ->setStoreId(Mage::app()->getStore()->getId())
-                                ->load($value);
-                            $helper->initProductLayout($product, $this);
-                            $helper->prepareAndRender($value, $this);
+
+                            // Prepare data
+                            $productHelper = Mage::helper('catalog/product');
+                            $params = new Varien_Object();
+
+                            // Standard algorithm to prepare and rendern product view page
+                            $product = $productHelper->initProduct($value, $this, $params);
+
+                            if (!$product) {
+                                throw new Mage_Core_Exception($this->__('Product is not loaded'), $this->ERR_NO_PRODUCT_LOADED);
+                            }
+
+                            Mage::getSingleton('catalog/session')->setLastViewedProductId($product->getId());
                             break;
                         default:
                             Mage::register($key, $value);
